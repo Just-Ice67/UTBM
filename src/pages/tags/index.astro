@@ -1,0 +1,12 @@
+---
+import { getAllPosts, getAllTags } from '@lib/posts.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
+
+const tags = getAllTags(await getAllPosts())
+---
+
+<BaseLayout page_title="All Tags">
+    <ul>
+        {tags.map((tag) => <li><a href={`/UTBM/tags/${tag}`}>{tag}</a></li>)}
+    </ul>
+</BaseLayout>

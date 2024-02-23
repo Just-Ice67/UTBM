@@ -1,0 +1,27 @@
+---
+import type { GetStaticPaths, MarkdownInstance } from 'astro'
+import type { PostFrontmatter } from '@lib/posts.astro'
+import { getPostSlug, getAllPosts } from '@lib/posts.astro'
+import PostLayout from '@layouts/PostLayout.astro'
+
+export const getStaticPaths: GetStaticPaths = async () => {
+    const posts = await getAllPosts()
+
+    return posts.map((post) => {
+        return {
+            params: {
+                post: getPostSlug(post)
+            },
+            props: {
+                post: post
+            }
+        }
+    })
+}
+
+const { Content, frontmatter } = Astro.props.post as MarkdownInstance<Record<string, any>>
+---
+
+<PostLayout frontmatter={frontmatter as PostFrontmatter}>
+    <Content />
+</PostLayout>

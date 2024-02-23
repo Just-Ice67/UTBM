@@ -1,0 +1,26 @@
+---
+import type { MarkdownInstance } from 'astro'
+
+export interface PostFrontmatter {
+    title: string
+    pubDate: string
+    description: string
+    author: string
+    image: {
+        url: string
+        alt: string
+    }
+    tags: string[]
+}
+
+export const getPostSlug = (post: MarkdownInstance<Record<string, any>>): string => {
+    return post.file.split('/').at(-1)!.slice(0, -3)
+}
+
+export const getAllPosts = async (): Promise<MarkdownInstance<Record<string, any>>[]> => {
+    return Astro.glob('@posts/**/*.md')
+}
+export const getAllTags = (posts: MarkdownInstance<Record<string, any>>[]): string[] => {
+    return [...new Set(posts.flatMap((post) => { return post.frontmatter.tags as string[] }))]
+}
+---

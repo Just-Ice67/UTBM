@@ -1,0 +1,30 @@
+---
+import type { GetStaticPaths, MarkdownInstance } from 'astro'
+import { getPostSlug, getAllPosts, getAllTags } from '@lib/posts.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
+
+export const getStaticPaths: GetStaticPaths = async () => {
+    const all_posts = await getAllPosts()
+    const all_tags = getAllTags(all_posts)
+
+    return all_tags.map((tag) => {
+        return {
+            params: {
+                tag: tag
+            },
+            props: {
+                posts: all_posts.filter((post) => { return post.frontmatter.tags?.includes(tag) })
+            }
+        }
+    })
+}
+
+const { tag } = Astro.params
+const posts = Astro.props.posts as MarkdownInstance<Record<string, any>>[]
+---
+
+<BaseLayout page_title={`Posts tagged with: ${tag}`}>
+    <ul>
+        {posts.map((post) => <li><a href={`/UTBM/posts/${getPostSlug(post)}`}>{post.frontmatter.title}</a></li>)}
+    </ul>
+</BaseLayout>

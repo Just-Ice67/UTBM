@@ -1,0 +1,14 @@
+---
+import type { PostFrontmatter } from '@lib/posts.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
+
+interface Props {
+    frontmatter: PostFrontmatter
+}
+
+const { frontmatter } = Astro.props
+---
+
+<BaseLayout page_title={frontmatter.title}>
+    <slot />
+</BaseLayout>
