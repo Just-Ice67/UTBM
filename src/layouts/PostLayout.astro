@@ -1,9 +1,9 @@
 ---
-import type { PostFrontmatter } from '@lib/posts.astro'
+import type { CollectionEntry } from 'astro:content'
 import BaseLayout from '@layouts/BaseLayout.astro'
 
 interface Props {
-    frontmatter: PostFrontmatter
+    frontmatter: CollectionEntry<'posts'>['data']
 }
 
 const { frontmatter } = Astro.props

@@ -9,8 +9,7 @@
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
       "@lib/*": ["src/lib/*"],
-      "@pages/*": ["src/pages/*"],
-      "@posts/*": ["posts/*"]
+      "@pages/*": ["src/pages/*"]
     }
   },
   "include": [
